@@ -1,0 +1,62 @@
+CREATE TABLE oppilas
+( oppilasnro        CHAR(4)  NOT NULL,
+  etunimi           VARCHAR(20) NOT NULL,
+  sukunimi          VARCHAR(40) NOT NULL,
+  syntpvm           DATE,
+  lahiosoite        VARCHAR(40),
+  postinro          CHAR(5),
+  postitmp          VARCHAR(30),
+  sukupuoli         CHAR(1) NOT NULL,
+  PRIMARY KEY  (oppilasnro )
+ );
+
+CREATE TABLE opettaja
+( opettajanro       CHAR(4)  NOT NULL,
+  etunimi           VARCHAR(20) NOT NULL,
+  sukunimi          VARCHAR(40) NOT NULL,
+  palkka            DECIMAL(6,2) NOT NULL,
+  puhelin           CHAR(10),
+  syntpvm           DATE,
+  PRIMARY KEY  (opettajanro) 
+ );
+
+CREATE TABLE aine
+( ainenro           CHAR(4)  NOT NULL,
+  nimi              VARCHAR(30) NOT NULL,
+  vastuuopettaja    CHAR(4),
+  suorituspisteet   SMALLINT,
+  PRIMARY KEY (ainenro),
+  FOREIGN KEY (vastuuopettaja)
+                REFERENCES opettaja (opettajanro)		
+ );
+
+CREATE TABLE kurssi
+(ainenro           CHAR(4)  NOT NULL,
+  kurssikerta       SMALLINT NOT NULL,
+  opettajanro       CHAR(4),
+  osallistujalkm    SMALLINT ,
+  alkupvm           DATE,
+  loppupvm          DATE,
+  CHECK (loppupvm >= alkupvm),
+  PRIMARY KEY (ainenro , kurssikerta),
+  FOREIGN KEY (ainenro)
+                REFERENCES aine (ainenro),
+  FOREIGN KEY (opettajanro)
+                REFERENCES opettaja (opettajanro)
+ );		
+	
+CREATE TABLE suoritus
+( oppilasnro        CHAR(4)  NOT NULL,
+  ainenro           CHAR(4)  NOT NULL,
+  kurssikerta       SMALLINT NOT NULL,
+  pvm               DATE,  
+  arvosana          SMALLINT CHECK ((arvosana BETWEEN 0 AND 5)
+                                   OR (arvosana IS NULL)),
+  myontaja          CHAR(4),
+  PRIMARY KEY (oppilasnro, ainenro, kurssikerta),
+  FOREIGN KEY (oppilasnro)
+                REFERENCES oppilas (oppilasnro),
+		
+  FOREIGN KEY (ainenro, kurssikerta)
+                REFERENCES kurssi (ainenro, kurssikerta)
+ );	
