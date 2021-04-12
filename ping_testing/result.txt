@@ -1,0 +1,19 @@
+
+www.whitehouse.gov 
+IP is 2.23.132.144 
+Average time is 23ms 
+www.iltalehti.fi 
+IP is 13.33.240.92 
+Average time is 7ms 
+best.aliexpress.com 
+IP is 184.51.132.94 
+Average time is 7ms 
+www.whitehouse.gov 
+IP is 2.23.132.144 
+Average time is 14ms 
+www.iltalehti.fi 
+IP is 13.33.240.92 
+Average time is 8ms 
+best.aliexpress.com 
+IP is 184.51.132.94 
+Average time is 7ms 
